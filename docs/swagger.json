@@ -1,0 +1,914 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Test task for SmartWay",
+        "title": "Swagger of API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:80",
+    "basePath": "/",
+    "paths": {
+        "/doc/delete/{docId}": {
+            "delete": {
+                "description": "delete a document",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "docs"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "document id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/client.Success"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/doc/get/user/{userId}": {
+            "get": {
+                "description": "Get All USer Documents By User Id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "docs"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/doc.DocumentList"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/doc/new/{userId}": {
+            "post": {
+                "description": "create a new document",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "docs"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/doc.Document"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/client.Success"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/doc/update/{docId}": {
+            "patch": {
+                "description": "update user document",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "docs"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "document id",
+                        "name": "docId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/doc.Document"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/client.Success"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/ping": {
+            "get": {
+                "description": "for test",
+                "tags": [
+                    "Base"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/client.Pong"
+                        }
+                    }
+                }
+            }
+        },
+        "/ticket/all": {
+            "get": {
+                "description": "get all tickets",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ticket"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ticket.FullInfoTicketList"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/ticket/delete/{ticketId}": {
+            "delete": {
+                "description": "delete a ticket",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ticket"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ticket id",
+                        "name": "ticketId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/client.Success"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/ticket/new/{userId}": {
+            "post": {
+                "description": "create a new ticket",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ticket"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ticket.Ticket"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/client.Success"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/ticket/passengers/{ticketId}": {
+            "get": {
+                "description": "get all passengers by ticket id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ticket"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ticket id",
+                        "name": "ticketId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ticket.PassengersByTicketId"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/ticket/update/{ticketId}": {
+            "patch": {
+                "description": "update a ticket",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ticket"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ticket id",
+                        "name": "ticketId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ticket.FullInfoTicket"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/client.Success"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/tickets/get/all/{ticketId}": {
+            "get": {
+                "description": "get all info about ticket from ticket id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ticket"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ticket id",
+                        "name": "ticketId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ticket.AllINfoAboutTicket"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/delete/{userId}": {
+            "delete": {
+                "description": "delete a user",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/client.Success"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/get/{userId}": {
+            "post": {
+                "description": "Get a report of user for diapason",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.TimeDiapason"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ReportFlights"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/new": {
+            "post": {
+                "description": "create a new document",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/client.Success"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update/{userId}": {
+            "patch": {
+                "description": "update user document",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/client.Success"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/client.Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "client.Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "client.Pong": {
+            "type": "object",
+            "properties": {
+                "pong": {
+                    "type": "string"
+                }
+            }
+        },
+        "client.Success": {
+            "type": "object",
+            "properties": {
+                "ok": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "doc.Document": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "doc.DocumentList": {
+            "type": "object",
+            "properties": {
+                "documents": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/doc.Document"
+                    }
+                }
+            }
+        },
+        "model.FullTicketInfo": {
+            "type": "object",
+            "properties": {
+                "buyTime": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "endPoint": {
+                    "type": "string"
+                },
+                "endTime": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "startPoint": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.ReportFlights": {
+            "type": "object",
+            "properties": {
+                "notFulFilled": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.FullTicketInfo"
+                    }
+                },
+                "previously": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.FullTicketInfo"
+                    }
+                },
+                "previouslyAndNotFulFilled": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.FullTicketInfo"
+                    }
+                }
+            }
+        },
+        "ticket.AllINfoAboutTicket": {
+            "type": "object",
+            "properties": {
+                "buyTime": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "endPoint": {
+                    "type": "string"
+                },
+                "endTime": {
+                    "type": "string"
+                },
+                "passengers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ticket.Passenger"
+                    }
+                },
+                "startPoint": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "ticket.FullInfoTicket": {
+            "type": "object",
+            "properties": {
+                "buyTime": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "endPoint": {
+                    "type": "string"
+                },
+                "endTime": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "startPoint": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "ticket.FullInfoTicketList": {
+            "type": "object",
+            "properties": {
+                "tickets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ticket.FullInfoTicket"
+                    }
+                }
+            }
+        },
+        "ticket.Passenger": {
+            "type": "object",
+            "properties": {
+                "documents": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/doc.Document"
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Name"
+                },
+                "patronymic": {
+                    "type": "string",
+                    "example": "Patronymic"
+                },
+                "surname": {
+                    "type": "string",
+                    "example": "Surname"
+                }
+            }
+        },
+        "ticket.PassengersByTicketId": {
+            "type": "object",
+            "properties": {
+                "passengers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/user.User"
+                    }
+                }
+            }
+        },
+        "ticket.Ticket": {
+            "type": "object",
+            "properties": {
+                "company": {
+                    "type": "string"
+                },
+                "endPoint": {
+                    "type": "string"
+                },
+                "endTime": {
+                    "type": "string"
+                },
+                "startPoint": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.TimeDiapason": {
+            "type": "object",
+            "properties": {
+                "endTime": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.User": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Name"
+                },
+                "patronymic": {
+                    "type": "string",
+                    "example": "Patronymic"
+                },
+                "surname": {
+                    "type": "string",
+                    "example": "Surname"
+                }
+            }
+        }
+    }
+}

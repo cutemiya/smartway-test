@@ -1,0 +1,596 @@
+basePath: /
+definitions:
+  client.Error:
+    properties:
+      code:
+        type: integer
+      error:
+        type: string
+    type: object
+  client.Pong:
+    properties:
+      pong:
+        type: string
+    type: object
+  client.Success:
+    properties:
+      ok:
+        type: boolean
+    type: object
+  doc.Document:
+    properties:
+      id:
+        type: integer
+      number:
+        type: string
+      type:
+        type: string
+    type: object
+  doc.DocumentList:
+    properties:
+      documents:
+        items:
+          $ref: '#/definitions/doc.Document'
+        type: array
+    type: object
+  model.FullTicketInfo:
+    properties:
+      buyTime:
+        type: string
+      company:
+        type: string
+      endPoint:
+        type: string
+      endTime:
+        type: string
+      id:
+        type: integer
+      startPoint:
+        type: string
+      startTime:
+        type: string
+      userId:
+        type: integer
+    type: object
+  model.ReportFlights:
+    properties:
+      notFulFilled:
+        items:
+          $ref: '#/definitions/model.FullTicketInfo'
+        type: array
+      previously:
+        items:
+          $ref: '#/definitions/model.FullTicketInfo'
+        type: array
+      previouslyAndNotFulFilled:
+        items:
+          $ref: '#/definitions/model.FullTicketInfo'
+        type: array
+    type: object
+  ticket.AllINfoAboutTicket:
+    properties:
+      buyTime:
+        type: string
+      company:
+        type: string
+      endPoint:
+        type: string
+      endTime:
+        type: string
+      passengers:
+        items:
+          $ref: '#/definitions/ticket.Passenger'
+        type: array
+      startPoint:
+        type: string
+      startTime:
+        type: string
+    type: object
+  ticket.FullInfoTicket:
+    properties:
+      buyTime:
+        type: string
+      company:
+        type: string
+      endPoint:
+        type: string
+      endTime:
+        type: string
+      id:
+        type: integer
+      startPoint:
+        type: string
+      startTime:
+        type: string
+      userId:
+        type: integer
+    type: object
+  ticket.FullInfoTicketList:
+    properties:
+      tickets:
+        items:
+          $ref: '#/definitions/ticket.FullInfoTicket'
+        type: array
+    type: object
+  ticket.Passenger:
+    properties:
+      documents:
+        items:
+          $ref: '#/definitions/doc.Document'
+        type: array
+      name:
+        example: Name
+        type: string
+      patronymic:
+        example: Patronymic
+        type: string
+      surname:
+        example: Surname
+        type: string
+    type: object
+  ticket.PassengersByTicketId:
+    properties:
+      passengers:
+        items:
+          $ref: '#/definitions/user.User'
+        type: array
+    type: object
+  ticket.Ticket:
+    properties:
+      company:
+        type: string
+      endPoint:
+        type: string
+      endTime:
+        type: string
+      startPoint:
+        type: string
+      startTime:
+        type: string
+    type: object
+  user.TimeDiapason:
+    properties:
+      endTime:
+        type: string
+      startTime:
+        type: string
+    type: object
+  user.User:
+    properties:
+      name:
+        example: Name
+        type: string
+      patronymic:
+        example: Patronymic
+        type: string
+      surname:
+        example: Surname
+        type: string
+    type: object
+host: localhost:80
+info:
+  contact: {}
+  description: Test task for SmartWay
+  title: Swagger of API
+  version: "1.0"
+paths:
+  /doc/delete/{docId}:
+    delete:
+      description: delete a document
+      parameters:
+      - description: document id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/client.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - docs
+  /doc/get/user/{userId}:
+    get:
+      description: Get All USer Documents By User Id
+      parameters:
+      - description: user id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/doc.DocumentList'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - docs
+  /doc/new/{userId}:
+    post:
+      consumes:
+      - application/json
+      description: create a new document
+      parameters:
+      - description: user id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/doc.Document'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/client.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - docs
+  /doc/update/{docId}:
+    patch:
+      consumes:
+      - application/json
+      description: update user document
+      parameters:
+      - description: document id
+        in: path
+        name: docId
+        required: true
+        type: integer
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/doc.Document'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/client.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - docs
+  /ping:
+    get:
+      description: for test
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/client.Pong'
+      tags:
+      - Base
+  /ticket/all:
+    get:
+      description: get all tickets
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ticket.FullInfoTicketList'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - ticket
+  /ticket/delete/{ticketId}:
+    delete:
+      description: delete a ticket
+      parameters:
+      - description: ticket id
+        in: path
+        name: ticketId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/client.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - ticket
+  /ticket/new/{userId}:
+    post:
+      consumes:
+      - application/json
+      description: create a new ticket
+      parameters:
+      - description: user id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/ticket.Ticket'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/client.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - ticket
+  /ticket/passengers/{ticketId}:
+    get:
+      description: get all passengers by ticket id
+      parameters:
+      - description: ticket id
+        in: path
+        name: ticketId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ticket.PassengersByTicketId'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - ticket
+  /ticket/update/{ticketId}:
+    patch:
+      consumes:
+      - application/json
+      description: update a ticket
+      parameters:
+      - description: ticket id
+        in: path
+        name: ticketId
+        required: true
+        type: integer
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/ticket.FullInfoTicket'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/client.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - ticket
+  /tickets/get/all/{ticketId}:
+    get:
+      description: get all info about ticket from ticket id
+      parameters:
+      - description: ticket id
+        in: path
+        name: ticketId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ticket.AllINfoAboutTicket'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - ticket
+  /user/delete/{userId}:
+    delete:
+      description: delete a user
+      parameters:
+      - description: user id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/client.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - user
+  /user/get/{userId}:
+    post:
+      consumes:
+      - application/json
+      description: Get a report of user for diapason
+      parameters:
+      - description: user id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.TimeDiapason'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ReportFlights'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - user
+  /user/new:
+    post:
+      consumes:
+      - application/json
+      description: create a new document
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/client.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - user
+  /user/update/{userId}:
+    patch:
+      consumes:
+      - application/json
+      description: update user document
+      parameters:
+      - description: user id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/client.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/client.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/client.Error'
+      tags:
+      - user
+swagger: "2.0"
